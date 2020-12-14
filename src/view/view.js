@@ -10,9 +10,15 @@ class View {
     init = () => {
         this.root = document.getElementById("root");
         this.mainContainer = this.createDiv({ className: "root__main-container", id: "main-container" });
-        this.canvas = this.createElemntCanvas({ className: 'main-container__canvas', id: 'canvas', height: '400px', width: '800px' });
+        this.canvas = this.createCanvas({ className: 'main-container__canvas', id: 'canvas', height: '400', width: '800' });
+        this.currentRange = this.createInput({type: 'range', className: 'main-container__range', id: 'range', min: '1', max: '75', step: '1'});
+        this.currentColor = this.createInput({type: 'color', className: 'main-container__color', id: 'color'});
+        this.toolBar = this.createDiv({className: 'main-container__tool-bar', id: 'tool-bar'});
 
+        this.toolBar.append(this.currentRange);
+        this.toolBar.append(this.currentColor);
         this.mainContainer.append(this.canvas);
+        this.mainContainer.append(this.toolBar);
         this.root.append(this.mainContainer);
     }
 
@@ -25,7 +31,7 @@ class View {
         return div;
     }
 
-    createElemntCanvas = props => {
+    createCanvas = props => {
         const canvas = document.createElement("canvas");
 
         props.className && (canvas.className = props.className);
@@ -36,34 +42,17 @@ class View {
         return canvas;
     }
     createInput = props => {
-        const brushWidth = document.createElement("input");
+        const input = document.createElement("input");
 
-        props.type && (brushWidth.type = props.type);
-        props.className && (brushWidth.className = props.className);
-        props.id && (brushWidth.id = props.id);
-        props.min && (brushWidth.min = props.min);
-        props.max && (brushWidth.max = props.max);
-        props.step && (brushWidth.step = props.step)
+        props.type && (input.type = props.type);
+        props.className && (input.className = props.className);
+        props.id && (input.id = props.id);
+        props.min && (input.min = props.min);
+        props.max && (input.max = props.max);
+        props.step && (input.step = props.step)
+
+        return input;
     }
-
-    createCanvas = () => {
-        this.canvas = this.createElemntCanvas({
-            className: 'main-container__canvas', id: 'canvas',
-            height: '400px', width: '800px'
-        });
-    }
-
-    createInputColor = () => {
-        this.currentColor = this.createInput({
-            type: 'color', className: 'main-container__color', id: 'color'
-        })
-    }
-
-    createInputRange = () => {
-        this.currentRange = this.createInput({
-            type: 'range', className: 'main-container__range', id: 'range',
-            min: '1', max: '75', step: '1'
-        })
-    }
-
 }
+
+export default View;
