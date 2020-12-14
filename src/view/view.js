@@ -1,3 +1,14 @@
 class View {
-    constructor () {}
+    constructor () {
+        this.root = null;
+        
+    }
+
+    init = () => {
+        this.root = document.getElementById("root");
+    }
+
+    
 }
+
+export default View;
