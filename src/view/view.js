@@ -3,7 +3,6 @@ class View {
         this.ctx = null;
         this.root = null;
         this.canvas = null;
-        this.isPressed = null;
         this.mainContainer = null;
         this.currentColor = null;
         this.currentRange = null;
@@ -13,8 +12,7 @@ class View {
         this.root = document.getElementById("root");
         this.mainContainer = this.createDiv({ className: "root__main-container", id: "main-container" });
         this.canvas = this.createCanvas({ className: 'main-container__canvas', id: 'canvas', height: '400', width: '800' });
-        this.ctx = this.canvas.getContext('2d');
-        this.isPressed = false;
+        this.ctx = this.canvas.getContext('2d');      
         this.currentRange = this.createInput({type: 'range', className: 'main-container__range', id: 'range', min: '1', max: '75', step: '1'});
         this.currentColor = this.createInput({type: 'color', className: 'main-container__color', id: 'color'});
         this.toolBar = this.createDiv({className: 'main-container__tool-bar', id: 'tool-bar'});
@@ -26,25 +24,22 @@ class View {
         this.root.append(this.mainContainer);
     }
 
-    startPosition = event => {
-        this.isPressed = true;
-        this.draw(event);
+    listenerStartPosition = cb => {
+        this.canvas.addEventListener('mousedown',event => {			
+            cb(event);
+        });
     }
 
-    endPosition = () => {
-        this.isPressed = false;
-        this.ctx.beginPath();
+    listenerEndPosition = cb => {
+        this.canvas.addEventListener('mouseup',() => {			
+            cb();
+        });
     }
 
-    draw = event => {
-        if(isPressed) {
-            this.ctx.lineWidth = Number(this.currentRange);
-            this.ctx.lineCap = 'round';
-            this.ctx.strokeStyle = this.currentColor;
-
-            this.ctx.lineTo(event.clientX, event.clientY);
-            this.ctx.stroke();
-        }
+    listenerDraw = cb => {
+        this.canvas.addEventListener('mousemove', event => {			
+            cb(event);
+        });
     }
 
     createDiv = (props) => {
