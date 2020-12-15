@@ -1,13 +1,13 @@
 class Controller {
-    constructor (view) {
+    constructor(view) {
         this.view = view;
         this.isPressed = null;
         this.currentRange = 25;
         this.currentColor = null;
     }
-    
+
     init = () => {
-        this.view.init(); 
+        this.view.init();
 
         this.ctx = this.view.canvas.getContext('2d');
         this.isPressed = false;
@@ -32,7 +32,7 @@ class Controller {
     }
 
     draw = event => {
-        if(this.isPressed) {
+        if (this.isPressed) {
             this.ctx.lineWidth = Number(this.currentRange);
             this.ctx.lineCap = 'round';
             this.ctx.strokeStyle = this.currentColor;
@@ -41,7 +41,7 @@ class Controller {
             this.ctx.stroke();
             this.ctx.beginPath();
             this.ctx.moveTo(event.layerX, event.layerY);
-        }              
+        }
     }
 
     getCurrentRange = () => {
