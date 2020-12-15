@@ -2,12 +2,15 @@ class Controller {
     constructor (view) {
         this.view = view;
         this.isPressed = null;
+        this.currentRange = null;
+        this.currentColor = null;
 
     }
     
     init = () => {
         this.view.init(); 
         this.isPressed = false;
+        this.view.getRange(this.getCurrentRange.bind(this));
         this.view.listenerStartPosition(this.startPosition.bind(this));
         this.view.listenerEndPosition(this.endPosition.bind(this));
         this.view.listenerDraw(this.draw.bind(this));
@@ -32,7 +35,11 @@ class Controller {
             this.view.ctx.stroke();
             this.view.ctx.beginPath();
             this.view.ctx.moveTo(event.clientX, event.clientY);
-        }
+        }              
+    }
+
+    getCurrentRange = () => {
+        this.currentRange = this.view.rangeInput.value;
     }
 }
 
