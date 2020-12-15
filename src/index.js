@@ -1,5 +1,4 @@
-import "./style.less"
-
+import "./style.less";
 import View from "./view/view";
 import Controller from './controller/controller';
 
