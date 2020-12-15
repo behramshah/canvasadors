@@ -7,13 +7,13 @@ class View {
     };
 
     init = () => {
-        this.root = document.getElementById("root");
-        this.mainContainer = this.createDiv({ className: "root__main-container", id: "main-container" });
+        this.root = document.getElementById('root');
         this.canvas = this.createCanvas({ className: 'main-container__canvas', id: 'canvas', height: '400', width: '800' });
-        this.ctx = this.canvas.getContext('2d'); 
-        this.rangeInput = this.createInput({type: 'range', className: 'main-container__range', id: 'range', min: '1', max: '75', step: '1'});
-        this.colorInput = this.createInput({type: 'color', className: 'main-container__color', id: 'color'});
+        this.ctx = this.canvas.getContext('2d');
         this.toolBar = this.createDiv({className: 'main-container__tool-bar', id: 'tool-bar'});
+        this.rangeInput = this.createInput({type: 'range', className: 'main-container__range', id: 'range', min: '1', max: '75', step: '1'});
+        this.colorInput = this.createInput({type: 'color', className: 'main-container__color', id: 'color', value:''});
+        this.mainContainer = this.createDiv({ className: 'root__main-container', id: 'main-container' });
 
         this.toolBar.append(this.rangeInput);
         this.toolBar.append(this.colorInput);
@@ -50,31 +50,38 @@ class View {
     }
 
     createCanvas = props => {
-        const canvas = document.createElement("canvas");
+        const canvas = document.createElement('canvas');
 
-        props.className && (canvas.className = props.className);
         props.id && (canvas.id = props.id);
-        props.height && (canvas.height = props.height);
         props.width && (canvas.width = props.width);
+        props.height && (canvas.height = props.height);
+        props.className && (canvas.className = props.className);
 
         return canvas;
-    }
-
+	}
+	
     createInput = props => {
-        const input = document.createElement("input");
+        const input = document.createElement('input');
 
-        props.type && (input.type = props.type);
-        props.className && (input.className = props.className);
         props.id && (input.id = props.id);
         props.min && (input.min = props.min);
         props.max && (input.max = props.max);
         props.step && (input.step = props.step);
+        props.type && (input.type = props.type);
+        props.value && (input.value = props.value);
+        props.className && (input.className = props.className);
 
         return input;
     }
 
     getRange = (cb) => {
         this.rangeInput.addEventListener('change', () => {     
+            cb();
+        });
+    }
+	
+	getColor = (cb) => {
+        this.colorInput.addEventListener('change', () => {     
             cb();
         });
     }

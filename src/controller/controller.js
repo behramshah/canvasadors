@@ -4,16 +4,16 @@ class Controller {
         this.isPressed = null;
         this.currentRange = null;
         this.currentColor = null;
-
     }
     
     init = () => {
         this.view.init(); 
         this.isPressed = false;
-        this.view.getRange(this.getCurrentRange.bind(this));
-        this.view.listenerStartPosition(this.startPosition.bind(this));
-        this.view.listenerEndPosition(this.endPosition.bind(this));
         this.view.listenerDraw(this.draw.bind(this));
+        this.view.getRange(this.getCurrentRange.bind(this));
+        this.view.getColor(this.getCurrentColor.bind(this));
+        this.view.listenerEndPosition(this.endPosition.bind(this));
+        this.view.listenerStartPosition(this.startPosition.bind(this));
     }
 
     startPosition = event => {
@@ -40,6 +40,10 @@ class Controller {
 
     getCurrentRange = () => {
         this.currentRange = this.view.rangeInput.value;
+    }
+
+    getCurrentColor = () => {
+        this.currentColor = this.view.colorInput.value;
     }
 }
 
