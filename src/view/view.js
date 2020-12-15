@@ -6,7 +6,7 @@ class View {
         this.mainContainer = null;
     };
 
-    init = () => {
+    init = () => { 
         this.root = document.getElementById('root');
         this.canvas = this.createCanvas({ className: 'main-container__canvas', id: 'canvas', height: '400', width: '800' });
         this.toolBar = this.createDiv({ className: 'main-container__tool-bar', id: 'tool-bar' });
@@ -32,7 +32,13 @@ class View {
             cb();
         });
     }
-
+    
+    listenerOutCanvas = cb => {
+        this.canvas.addEventListener('mouseout', () => {
+            cb();
+        });
+    }
+    
     listenerDraw = cb => {
         this.canvas.addEventListener('mousemove', event => {
             cb(event);

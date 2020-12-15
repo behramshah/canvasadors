@@ -16,6 +16,7 @@ class Controller {
         this.view.getRange(this.getCurrentRange.bind(this));
         this.view.getColor(this.getCurrentColor.bind(this));
         this.view.listenerEndPosition(this.endPosition.bind(this));
+        this.view.listenerOutCanvas(this.endPosition.bind(this));
         this.view.listenerStartPosition(this.startPosition.bind(this));
     }
 
@@ -50,7 +51,7 @@ class Controller {
 
     getCurrentColor = () => {
         this.currentColor = this.view.colorInput.value;
-    }
+  }
 }
 
 export default Controller;
