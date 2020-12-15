@@ -9,9 +9,8 @@ class View {
     init = () => {
         this.root = document.getElementById('root');
         this.canvas = this.createCanvas({ className: 'main-container__canvas', id: 'canvas', height: '400', width: '800' });
-        this.ctx = this.canvas.getContext('2d');
         this.toolBar = this.createDiv({className: 'main-container__tool-bar', id: 'tool-bar'});
-        this.rangeInput = this.createInput({type: 'range', className: 'main-container__range', id: 'range', min: '1', max: '75', step: '1'});
+        this.rangeInput = this.createInput({type: 'range', className: 'main-container__range', id: 'range', min: '1', max: '50', step: '1'});
         this.colorInput = this.createInput({type: 'color', className: 'main-container__color', id: 'color', value:''});
         this.mainContainer = this.createDiv({ className: 'root__main-container', id: 'main-container' });
 
@@ -40,7 +39,7 @@ class View {
         });
     }
 
-    createDiv = (props) => {
+    createDiv = props => {
         const div = document.createElement("div");
 
         props.id && (div.id = props.id);
@@ -74,13 +73,13 @@ class View {
         return input;
     }
 
-    getRange = (cb) => {
+    getRange = cb => {
         this.rangeInput.addEventListener('change', () => {     
             cb();
         });
     }
 	
-	getColor = (cb) => {
+	getColor = cb => {
         this.colorInput.addEventListener('change', () => {     
             cb();
         });
