@@ -4,14 +4,17 @@ class View {
         this.root = null;
         this.canvas = null;
         this.mainContainer = null;
+        this.currentRange = null;
+        this.currentColor = null;
     };
 
     init = () => { 
         this.root = document.getElementById('root');
         this.canvas = this.createCanvas({ className: 'main-container__canvas', id: 'canvas', height: '400', width: '800' });
+        this.ctx = this.canvas.getContext('2d');
         this.toolBar = this.createDiv({ className: 'main-container__tool-bar', id: 'tool-bar' });
-        this.rangeInput = this.createInput({ type: 'range', className: 'main-container__range', id: 'range', min: '1', max: '50', step: '1' });
-        this.colorInput = this.createInput({ type: 'color', className: 'main-container__color', id: 'color'});
+        this.rangeInput = this.createInput({ type: 'range', className: 'main-container__range', id: 'range', min: '1', max: '50', step: '1', value: '25'});
+        this.colorInput = this.createInput({ type: 'color', className: 'main-container__color', id: 'color', value: '#FF0000'});
         this.mainContainer = this.createDiv({ className: 'root__main-container', id: 'main-container' });
 
         this.toolBar.append(this.rangeInput);
@@ -23,6 +26,8 @@ class View {
 
     listenerStartPosition = cb => {
         this.canvas.addEventListener('mousedown', event => {
+            this.currentColor = this.colorInput.value;
+            this.currentRange = this.rangeInput.value;
             cb(event);
         });
     }
@@ -73,20 +78,21 @@ class View {
         props.max && (input.max = props.max);
         props.step && (input.step = props.step);
         props.type && (input.type = props.type);
+        props.value && (input.value = props.value);
         props.className && (input.className = props.className);
 
         return input;
     }
 
-    getRange = cb => {
+    getRange = () => {
         this.rangeInput.addEventListener('change', () => {
-            cb();
+            this.currentRange = this.rangeInput.value;
         });
     }
 
-    getColor = cb => {
+    getColor = () => {
         this.colorInput.addEventListener('change', () => {
-            cb();
+            this.currentColor = this.colorInput.value;
         });
     }
 }
