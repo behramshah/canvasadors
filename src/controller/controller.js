@@ -17,10 +17,10 @@ class Controller {
         this.view.listenerStartPosition(this.startPosition.bind(this));
     }
 
-    startPosition = event => {
+    startPosition = (x, y) => {
         this.isPressed = true;
 
-        this.draw(event);
+        this.draw(x, y);
     }
 
     endPosition = () => {
@@ -29,16 +29,16 @@ class Controller {
         this.view.ctx.beginPath();
     }
 
-    draw = event => {
+    draw = (x, y) => {
         if (this.isPressed) {
             this.view.ctx.lineWidth = Number(this.view.currentRange);
             this.view.ctx.lineCap = 'round';
             this.view.ctx.strokeStyle = this.view.currentColor;
 
-            this.view.ctx.lineTo(event.layerX, event.layerY);
+            this.view.ctx.lineTo(x, y);
             this.view.ctx.stroke();
             this.view.ctx.beginPath();
-            this.view.ctx.moveTo(event.layerX, event.layerY);
+            this.view.ctx.moveTo(x, y);
         }
     }
 }

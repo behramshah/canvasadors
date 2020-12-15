@@ -6,15 +6,15 @@ class View {
         this.mainContainer = null;
         this.currentRange = null;
         this.currentColor = null;
-    };
+    }
 
-    init = () => { 
+    init = () => {
         this.root = document.getElementById('root');
         this.canvas = this.createCanvas({ className: 'main-container__canvas', id: 'canvas', height: '400', width: '800' });
         this.ctx = this.canvas.getContext('2d');
         this.toolBar = this.createDiv({ className: 'main-container__tool-bar', id: 'tool-bar' });
-        this.rangeInput = this.createInput({ type: 'range', className: 'main-container__range', id: 'range', min: '1', max: '50', step: '1', value: '25'});
-        this.colorInput = this.createInput({ type: 'color', className: 'main-container__color', id: 'color', value: '#FF0000'});
+        this.rangeInput = this.createInput({ type: 'range', className: 'main-container__range', id: 'range', min: '1', max: '50', step: '1', value: '25' });
+        this.colorInput = this.createInput({ type: 'color', className: 'main-container__color', id: 'color', value: '#000000' });
         this.mainContainer = this.createDiv({ className: 'root__main-container', id: 'main-container' });
 
         this.toolBar.append(this.rangeInput);
@@ -28,7 +28,7 @@ class View {
         this.canvas.addEventListener('mousedown', event => {
             this.currentColor = this.colorInput.value;
             this.currentRange = this.rangeInput.value;
-            cb(event);
+            cb(event.layerX, event.layerY);
         });
     }
 
@@ -37,16 +37,16 @@ class View {
             cb();
         });
     }
-    
+
     listenerOutCanvas = cb => {
         this.canvas.addEventListener('mouseout', () => {
             cb();
         });
     }
-    
+
     listenerDraw = cb => {
         this.canvas.addEventListener('mousemove', event => {
-            cb(event);
+            cb(event.layerX, event.layerY);
         });
     }
 
