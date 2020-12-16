@@ -1,6 +1,8 @@
 class Controller {
-    constructor(view) {
+    constructor(view, model) {
         this.view = view;
+        this.model = model;
+        this.newDraw = null;
         this.isPressed = null;
     }
 
@@ -11,7 +13,7 @@ class Controller {
 
         this.view.getColor();
         this.view.getRange();
-        this.view.listenerDraw(this.draw.bind(this));
+        this.view.listenerDraw(this.setToDb.bind(this));
         this.view.listenerEndPosition(this.endPosition.bind(this));
         this.view.listenerOutCanvas(this.endPosition.bind(this));
         this.view.listenerStartPosition(this.startPosition.bind(this));
@@ -19,26 +21,23 @@ class Controller {
 
     startPosition = (x, y) => {
         this.isPressed = true;
-
-        this.draw(x, y);
+        this.newDraw = {
+            color: this.view.currentColor,
+            width: this.view.currentRange,
+            coordinates: []
+        }
+        this.setToDb(x, y);
+        this.model.addToDb(this.newDraw);
     }
 
     endPosition = () => {
         this.isPressed = false;
-
-        this.view.ctx.beginPath();
     }
 
-    draw = (x, y) => {
+    setToDb = (x, y) => {
         if (this.isPressed) {
-            this.view.ctx.lineWidth = Number(this.view.currentRange);
-            this.view.ctx.lineCap = 'round';
-            this.view.ctx.strokeStyle = this.view.currentColor;
-
-            this.view.ctx.lineTo(x, y);
-            this.view.ctx.stroke();
-            this.view.ctx.beginPath();
-            this.view.ctx.moveTo(x, y);
+            this.newDraw.coordinates.push({ x: x, y: y });
+            this.model.drawFromDb(this.view.ctx);
         }
     }
 }
