@@ -1,40 +1,6 @@
 class Model {
     constructor() {
-        this.dataBase = [
-            {
-                color: 'red',
-                width: '25',
-                coordinates: [
-                    {
-                        x: 226,
-                        y: 174
-                    },
-                    {
-                        x: 227,
-                        y: 175
-                    },
-                    {
-                        x: 228,
-                        y: 176
-                    }
-                ]
-            },
-            {
-                color: 'green',
-                width: '1',
-                coordinates: [
-                    {
-                        x: 300,
-                        y: 150
-                    },
-                    {
-                        x: 301,
-                        y: 151
-                    },
-                ]
-            }
-
-        ]
+        this.dataBase = [];
     }
 
     drawFromDb = (ctx) => {
@@ -48,9 +14,16 @@ class Model {
                 ctx.stroke();
                 ctx.beginPath();
                 ctx.moveTo(coor.x, coor.y);
+                
             });
+            ctx.beginPath();
         });
     }
+    
+    addToDb = (value) => {
+        if (value) {
+            this.dataBase.push(value);
+        }     
+    }
 }
-
-export default Model;
+    export default Model;
