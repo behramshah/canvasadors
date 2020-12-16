@@ -10,7 +10,7 @@ class Controller {
         this.view.init();
 
         this.isPressed = false;
-        
+
         this.view.getColor();
         this.view.getRange();
         this.view.listenerDraw(this.setToDb.bind(this));
@@ -18,32 +18,28 @@ class Controller {
         this.view.listenerOutCanvas(this.endPosition.bind(this));
         this.view.listenerStartPosition(this.startPosition.bind(this));
     }
-    
+
     startPosition = (x, y) => {
         this.isPressed = true;
         this.newDraw = {
             color: this.view.currentColor,
             width: this.view.currentRange,
-            coordinates: [],
+            coordinates: []
         }
         this.setToDb(x, y);
+        this.model.addToDb(this.newDraw);
     }
-    
-    endPosition = () => {
-        if(this.isPressed) {
-            this.model.addToDb(this.newDraw);
-            this.model.drawFromDb(this.view.ctx);
-            
-        }
-        this.isPressed = false;
 
+    endPosition = () => {
+        this.isPressed = false;
     }
-    
-    setToDb = (x, y ) => {
-        if (this.isPressed) {   
-            this.newDraw.coordinates.push({x: x, y: y});          
+
+    setToDb = (x, y) => {
+        if (this.isPressed) {
+            this.newDraw.coordinates.push({ x: x, y: y });
+            this.model.drawFromDb(this.view.ctx);
         }
-    }  
+    }
 }
 
 export default Controller;
