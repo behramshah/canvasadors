@@ -20,10 +20,10 @@ class Model {
         });
     }
     
-    addToDb = (value) => {
-        if (value) {
-            this.dataBase.push(value);
-        }     
+    addToDb = (newLine) => {
+        this.dataBase.push(newLine);
+  
     }
 }
-    export default Model;
+
+export default Model;
