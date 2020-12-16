@@ -1,11 +1,13 @@
 class Controller {
-    constructor(view) {
+    constructor(view, model) {
         this.view = view;
+        this.model = model;
         this.isPressed = null;
     }
 
     init = () => {
         this.view.init();
+        this.model.drawFromDb(this.view.ctx);
 
         this.isPressed = false;
 
